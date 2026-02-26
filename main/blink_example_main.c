@@ -3,16 +3,14 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-// 1. Configuración para habilitar todos los niveles de log en este archivo
 #define LOG_LOCAL_LEVEL ESP_LOG_DEBUG 
 #include "esp_log.h"
 #include "esp_err.h"
 
 #define LED 2
 static uint8_t led_level = 0;
-static const char *TAG = "Hernan_Project"; // Etiqueta para los logs
+static const char *TAG = "Hernan_Project"; 
 
-// Inicializar pin digital
 esp_err_t init_led(void){
     gpio_reset_pin(LED);
     esp_err_t err = gpio_set_direction(LED, GPIO_MODE_OUTPUT);
@@ -28,7 +26,7 @@ esp_err_t init_led(void){
 esp_err_t blink_led(void){
     led_level = !led_level;
     
-    // Log de nivel Debug (solo se ve si eliges nivel DEBUG)
+    // Log de nivel Debug 
     ESP_LOGD(TAG, "Cambiando nivel logico a: %d", led_level);
     
     esp_err_t err = gpio_set_level(LED, led_level);
@@ -45,17 +43,17 @@ esp_err_t blink_led(void){
 }
 
 void app_main(void){
-    // 2. AQUÍ ELIGES EL NIVEL (Requisito cumplido)
-    // Opciones: ESP_LOG_ERROR, ESP_LOG_WARN, ESP_LOG_INFO, ESP_LOG_DEBUG
+    
+    
     esp_log_level_set(TAG, ESP_LOG_INFO); 
 
     ESP_ERROR_CHECK(init_led());
     
     while (1)
     {
-        // 3. Control de retardo con vTaskDelay (Requisito cumplido)
         vTaskDelay(pdMS_TO_TICKS(1000));
-        
+        ESP_LOGW(TAG, "Ejemplo de warning");
         ESP_ERROR_CHECK(blink_led());
+
     }
 }
