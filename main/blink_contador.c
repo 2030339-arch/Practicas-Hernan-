@@ -10,7 +10,7 @@
 
 #define LED_PIN 2
 static uint8_t led_level = 0;
-static const char *TAG = "Charly";
+static const char *TAG = "Hernan";
 
 // 1. FUNCIÓN DE CONFIGURACIÓN
 esp_err_t init_led(void) {
